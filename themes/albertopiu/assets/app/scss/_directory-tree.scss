@@ -1,0 +1,59 @@
+.directory-tree-component {
+    background:    #eaeef3 !important;
+
+    overflow:      hidden;
+    margin-top:    30px;
+    margin-bottom: 30px;
+    font-size:     .7em;
+}
+
+.directory-tree-content {
+    @include content;
+
+    margin-top:    10px;
+    margin-bottom: 10px;
+
+    .node-line {
+        overflow:    hidden;
+        height:      26px;
+        line-height: 26px;
+    }
+
+    .node-name {
+        i {
+            margin-right: 5px;
+        }
+
+        i,
+        .slash {
+            color: rgba(0, 0, 0, .3);
+        }
+    }
+
+    .node-comment {
+        margin-left: 20px;
+        color:       rgba(0, 0, 0, .3);
+    }
+}
+
+.directory-tree-directory > .node-line {
+    cursor: pointer;
+
+    &.node-line:hover .node-name {
+        border-bottom: 3px solid rgba(0, 0, 0, .1);
+    }
+}
+
+.directory-tree-directory > .node-files {
+    padding-left: 40px;
+}
+
+.node-filename {
+    border-top: 1px solid rgba(0, 0, 0, .08);
+    font-size:  .7em;
+
+    span {
+        @include content;
+    }
+}
+

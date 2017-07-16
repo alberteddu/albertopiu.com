@@ -1,0 +1,4 @@
+{% if post.actions|default([])|length > 0 %}
+
+    {% include "part/toc.html.twig" with {items: post.actions} %}
+{% endif %}

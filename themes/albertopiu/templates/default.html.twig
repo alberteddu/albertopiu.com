@@ -1,0 +1,9 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    {% if post.type == 'item' %}
+        {% include "part/actions.html.twig" %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

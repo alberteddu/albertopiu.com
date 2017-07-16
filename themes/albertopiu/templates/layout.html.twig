@@ -1,0 +1,82 @@
+{% if show_color is not defined %}
+    {% set show_color = true %}
+{% endif %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        {% if post.properties.page_title is defined %}
+            {{ post.properties.page_title }}
+        {% elseif post.properties.title is defined %}
+            {{ post.properties.title }}
+        {% else %}
+            {{ config.site.name }}
+        {% endif %}
+    </title>
+
+    <link href="{{ asset('app/app.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('fonts/css/fontello.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('highlight/styles/grayscale.css') }}" rel="stylesheet" type="text/css"/>
+</head>
+
+{% set theme_parent = post.parents().where('type', 'item') %}
+{% if theme_parent|length > 0 %}
+    {% set theme_parent = theme_parent[1] %}
+{% else %}
+    {% set theme_parent = false %}
+{% endif %}
+
+<body{% if post.theme|default(false) %} class="{% if show_color %}color {% endif %}theme-{{ post.theme }} {% if post
+.inverse|default(false) %}inverse{% endif %}"{% elseif theme_parent %} class="theme-{{ theme_parent.theme }} {% if
+theme_parent.inverse|default(false) %} inverse-toc{% endif %}"{% endif
+%}>
+
+{% block head %}
+{% endblock %}
+
+<div id="site">
+    {% if not post.root %}
+        <div id="breadcrumb">
+            {% set parents = post.parents %}
+
+            {% for parent in post.parents %}
+                <a href="{{ parent.url }}" class="item{% if parent.root %} home{% endif %}">{{ parent.title }}</a>
+
+                {% if not loop.last %}
+                    <span>/</span>
+                {% endif %}
+            {% endfor %}
+
+            <span>/ {{ post.title }}</span>
+        </div>
+    {% endif %}
+
+    <div id="wrapper">
+        {% block title_wrapper %}
+            <h1>
+                {% block title %}{{ post.title|default('') }}{% endblock %}
+            </h1>
+        {% endblock %}
+
+        {% block subtitke_wrapper %}
+            <h2>{% block subtitle %}{{ post.subtitle|default('')|raw }}{% endblock %}</h2>
+        {% endblock %}
+
+        {% block content_wrapper %}
+            <div id="page">
+                {% block content %}
+                    {{ post.content|default('')|raw }}
+                {% endblock %}
+            </div>
+        {% endblock %}
+    </div>
+</div>
+
+<script src="{{ asset('highlight/highlight.pack.js') }}"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="{{ asset('app/vendor.js') }}"></script>
+<script src="{{ asset('app/app.js') }}"></script>
+<script>require('initialize');</script>
+</body>
+</html>

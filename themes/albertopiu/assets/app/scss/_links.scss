@@ -1,0 +1,74 @@
+#site {
+    a:link,
+    a:active,
+    a:visited,
+    a:hover,
+    a.normal .link {
+        text-decoration:     none;
+        background-color:    $links-background;
+        color:               $semi-transparent-font-color;
+        padding:             3px 5px;
+        border-radius:       2px;
+        transition-duration: .1s;
+        transition-property: color, background;
+    }
+
+    a.background-on-hover,
+    a.background-on-hover.normal .link {
+        background-color: transparent;
+    }
+
+    a:hover,
+    a.normal:hover .link {
+        color:            $font-color;
+        background-color: $links-hover-background;
+    }
+
+    #page {
+        a:link,
+        a:active,
+        a:visited,
+        a:hover,
+        a.normal .link {
+            font-weight: 700;
+        }
+    }
+
+    a.normal {
+        font-weight:      normal !important;
+        background-color: transparent;
+        padding:          0;
+        border-radius:    0;
+    }
+}
+
+body.inverse {
+    a:link,
+    a:active,
+    a:visited,
+    a:hover,
+    a.normal .link {
+        text-decoration:     none;
+        background-color:    $links-background;
+        color:               $semi-transparent-inverse-font-color !important;
+    }
+
+    a:hover,
+    a.normal:hover .link {
+        color:            $inverse-font-color !important;
+    }
+}
+
+h3 {
+    position: relative;
+}
+
+a.back-to-toc {
+    text-decoration: none;
+    border: none !important;
+    font-size: 1.3em;
+    position: absolute;
+    left: -40px;
+    top: 9px;
+    font-weight: bold;
+}

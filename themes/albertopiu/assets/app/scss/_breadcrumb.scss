@@ -1,0 +1,29 @@
+#site {
+    #breadcrumb {
+        position:      absolute;
+        margin-top:    -80px;
+        line-height:   30px;
+        padding-left:  100px;
+        padding-right: 5px;
+        font-family:   $font-condensed;
+        color:         $very-transparent-font-color;
+        font-size:     .8em;
+
+        a {
+            background-color: transparent;
+            color:            $semi-transparent-font-color;
+            display:          inline-block;
+            padding:          0;
+        }
+
+        .item.home {
+            font-weight: 700;
+        }
+    }
+}
+
+body.inverse #site {
+    #breadcrumb {
+        color: $very-transparent-inverse-font-color;
+    }
+}

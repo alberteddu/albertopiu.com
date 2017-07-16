@@ -1,0 +1,67 @@
+.toc {
+    @include content;
+
+    list-style:  none;
+    font-size:   1.1em;
+    line-height: 1.5em;
+    color:       $very-transparent-font-color;
+
+    .toc-item {
+        margin-bottom: 5px;
+
+        a {
+            display: block;
+            padding: 5px 0;
+            margin:  0;
+        }
+
+        .toc-name {
+            font-family:    $font-condensed;
+            text-transform: lowercase;
+        }
+
+        .toc-description {
+            color:       $semi-transparent-font-color;
+            margin-left: 10px;
+            font-size:   .9em;
+        }
+    }
+
+    .page a .page-name {
+        font-weight: normal !important;
+    }
+}
+
+body.inverse {
+    .toc-description {
+        color: $very-transparent-inverse-font-color !important;
+    }
+
+    .toc a:hover .toc-name {
+        color: $font-color !important;
+    }
+}
+
+ol.toc {
+    padding:    0;
+    margin:     0 0 50px;
+    list-style: decimal-leading-zero;
+    font-size:  18px;
+
+    @include content;
+
+    li {
+        margin-bottom: 5px;
+    }
+
+    a:link,
+    a:hover,
+    a:visited {
+        font-weight: normal !important;
+        padding: 0 !important;
+    }
+}
+
+.content-block {
+    padding-top: 30px;
+}

@@ -1,0 +1,21 @@
+ul#actions {
+    @include content;
+
+    li {
+        display: inline-block;
+        margin-right: 10px;
+
+        a:link {
+            color: $semi-transparent-font-color;
+            font-size: .9em;
+            padding: 0;
+            margin-right: 20px;
+        }
+
+        a:hover {
+            color: $font-color;
+            background: transparent;
+            border-bottom: 4px solid white;
+        }
+    }
+}

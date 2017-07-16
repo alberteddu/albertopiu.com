@@ -1,0 +1,11 @@
+{% extends "layout.html.twig" %}
+
+{% set show_color = false %}
+
+{% block content %}
+    {% set pages = post.children.where('type', 'page') %}
+
+    {% embed "part/pages.html.twig" with {items: pages} %}
+    {% endembed %}
+{% endblock %}
+

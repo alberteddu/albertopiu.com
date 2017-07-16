@@ -1,0 +1,22 @@
+$font-color: rgba(0, 0, 0, .7);
+$inverse-background: #000000;
+$inverse-font-color: #ffffff;
+$semi-transparent-font-color: transparentize($font-color, .2);
+$semi-transparent-inverse-font-color: transparentize($inverse-font-color, .2);
+$very-transparent-font-color: transparentize($font-color, .5);
+$very-transparent-inverse-font-color: transparentize($inverse-font-color, .5);
+$links-background: transparent;
+$links-hover-background: #ffffff;
+$links-hover-inverse-background: #333333;
+$font-family: "Roboto", sans-serif;
+$font-condensed: "Roboto Condensed", sans-serif;
+$font-mono: "Fira Mono", monospace;
+$font-serif: "Trocchi", serif;
+$content-distance: 20px;
+$themes: (
+             "main": #fdf600,
+             "pine": #00ff96,
+             "branches": #4165c1,
+             "sillabe": #1c1718,
+             "octopus": #002f2f,
+         );

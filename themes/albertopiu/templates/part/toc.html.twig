@@ -1,0 +1,31 @@
+{% if ul_class is not defined %}
+    {% set ul_class = 'items-list' %}
+{% endif %}
+
+{% if item_name is not defined %}
+    {% set item_name = 'items' %}
+{% endif %}
+
+{% if with_descriptions is not defined %}
+    {% set with_descriptions = true %}
+{% endif %}
+
+{% if anchors is not defined %}
+    {% set anchors = false %}
+{% endif %}
+
+{% if items|length %}
+    <ul class="toc {{ ul_class }}">
+        {% for item in items %}
+            <li class="toc-item {{ item_name }}">
+                <a href="{% if anchors %}#{{ item.anchor }}{% else %}{{ item.url }}{% endif %}" class="normal background-on-hover">
+                    <span class="toc-name {{ item_name }}-name link">{{ item.title }}</span>
+
+                    {% if with_descriptions %}
+                        <span class="toc-description {{ item_name }}-description">{{ item.description }}</span>
+                    {% endif %}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
