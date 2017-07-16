@@ -1,4 +1,15 @@
 @mixin content {
-    margin-left: 100px;
-    max-width: 700px;
+    margin-left: $mobile-distance;
+    max-width: 350px;
+
+    @media (min-width: 480px) {
+        margin-left: $tablet-distance;
+        max-width: 550px;
+    }
+
+    @media (min-width: 800px) {
+        margin-left: $desktop-distance;
+        max-width: 700px;
+    }
 }
+

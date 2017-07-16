@@ -3,24 +3,13 @@
         background-color: $color;
     }
 
-    body.theme-#{$theme} .content-block a {
+    body.theme-#{$theme} .content-block a,
+    body.theme-#{$theme} ol.toc li a {
         border-bottom-color: lighten($color, 30%) !important;
         color:               darken($color, 30%) !important;
 
         &:hover {
             background-color: lighten($color, 30%) !important;
         }
-    }
-
-    body.theme-#{$theme} ol.toc li a {
-        padding: 2px 5px !important;
-    }
-
-    body.theme-#{$theme} ol.toc li a:hover {
-        background-color: $color !important;
-    }
-
-    body.theme-#{$theme}.inverse-toc ol.toc li a:hover {
-        color: white !important;
     }
 }

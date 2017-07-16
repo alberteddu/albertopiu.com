@@ -1,9 +1,9 @@
 #site {
     #breadcrumb {
         position:      absolute;
-        margin-top:    -80px;
+        margin-top:    -70px;
         line-height:   30px;
-        padding-left:  100px;
+        padding-left:  $mobile-distance;
         padding-right: 5px;
         font-family:   $font-condensed;
         color:         $very-transparent-font-color;
@@ -25,5 +25,17 @@
 body.inverse #site {
     #breadcrumb {
         color: $very-transparent-inverse-font-color;
+    }
+}
+
+@media (min-width: 480px) {
+    #site #breadcrumb {
+        padding-left: $tablet-distance;
+    }
+}
+
+@media (min-width: 800px) {
+    #site #breadcrumb {
+        padding-left: $desktop-distance;
     }
 }

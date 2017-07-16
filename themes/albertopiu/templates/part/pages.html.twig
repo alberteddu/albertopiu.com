@@ -9,7 +9,7 @@
         {% set skip_title = item.property('skip-title', false) %}
 
         <div id="{{ item.anchor }}" class="page-item content-block">
-            {% if not skip_title %}<h3>{{ item.title }} <small><a href="#" class="back-to-toc">&circlearrowright;</a></small></h3>{%
+            {% if not skip_title %}<h3>{{ item.title }}</h3>{%
             endif %}
 
             {{ item.__content|raw }}

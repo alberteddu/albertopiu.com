@@ -2,7 +2,7 @@
     @include content;
 
     list-style:  none;
-    font-size:   1.1em;
+    font-size:   18px;
     line-height: 1.5em;
     color:       $very-transparent-font-color;
 
@@ -18,12 +18,16 @@
         .toc-name {
             font-family:    $font-condensed;
             text-transform: lowercase;
+            margin-left:    -5px;
         }
 
         .toc-description {
-            color:       $semi-transparent-font-color;
-            margin-left: 10px;
-            font-size:   .9em;
+            color:         $semi-transparent-font-color;
+            margin-left:   0;
+            font-size:     .9em;
+            margin-top:    5px;
+            margin-bottom: 20px;
+            display:       block;
         }
     }
 
@@ -44,13 +48,15 @@ body.inverse {
 
 ol.toc {
     padding:    0;
-    margin:     0 0 50px;
     list-style: decimal-leading-zero;
-    font-size:  18px;
+    font-size:  16px;
 
     @include content;
 
+    margin:     0 0 50px 55px;
+
     li {
+        white-space:   nowrap;
         margin-bottom: 5px;
     }
 
@@ -58,10 +64,44 @@ ol.toc {
     a:hover,
     a:visited {
         font-weight: normal !important;
-        padding: 0 !important;
+        padding:     0 !important;
     }
 }
 
 .content-block {
     padding-top: 30px;
+}
+
+@media (min-width: 480px) {
+    .toc {
+        font-size: 20px;
+    }
+
+    .toc .toc-item .toc-description {
+        display: inline;
+        margin-left: 5px;
+    }
+
+    ol.toc {
+        margin-left: 65px
+    }
+}
+
+@media (min-width: 800px) {
+    .toc {
+        font-size: 22px;
+    }
+
+    .toc .toc-item {
+        margin-bottom: 10px;
+    }
+
+    .toc .toc-item .toc-description {
+        margin-left: 10px;
+    }
+
+    ol.toc {
+        font-size: 18px;
+        margin-left: 105px
+    }
 }

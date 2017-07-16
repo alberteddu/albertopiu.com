@@ -25,7 +25,7 @@ body.inverse {
 }
 
 #wrapper {
-    margin: 100px 0 100px;
+    margin: 30px 0 30px;
 }
 
 ul {
@@ -36,11 +36,12 @@ ul {
 
 h1 {
     font-family:    $font-condensed;
-    font-size:      1.1em;
+    font-size:      18px;
     font-weight:    700;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin:         50px 0;
+    margin-top:     80px;
+    margin-bottom:  30px;
 
     .meta {
         color:          $very-transparent-font-color;
@@ -54,9 +55,9 @@ h1 {
 
 h2, h3 {
     font-family: $font-serif;
-    font-size:   2em;
+    font-size:   18px;
     font-weight: normal;
-    line-height: 1.3em;
+    line-height: 32px;
     margin:      50px 0;
 }
 
@@ -69,4 +70,38 @@ h3 {
 
 h1, h2, h3 {
     @include content;
+}
+
+@media (min-width: 480px) {
+    h1 {
+        font-size:     20px;
+        margin-top:    90px;
+        margin-bottom: 40px;
+    }
+
+    h2, h3 {
+        font-size: 32px;
+        line-height: 50px;
+    }
+
+    h3 {
+        font-size: 26px;
+    }
+}
+
+@media (min-width: 800px) {
+    h1 {
+        font-size: 22px;
+        margin-top:    100px;
+        margin-bottom: 60px;
+    }
+
+    h2, h3 {
+        font-size: 45px;
+        line-height: 60px;
+    }
+
+    h3 {
+        font-size: 28px;
+    }
 }
