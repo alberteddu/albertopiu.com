@@ -3,6 +3,16 @@
         background-color: $color;
     }
 
+    body .content-block a,
+    body ol.toc li a {
+        border-bottom-color: lighten(#fdf600, 30%) !important;
+        color:               darken(#fdf600, 30%) !important;
+
+        &:hover {
+            background-color: lighten(#fdf600, 30%) !important;
+        }
+    }
+
     body.theme-#{$theme} .content-block a,
     body.theme-#{$theme} ol.toc li a {
         border-bottom-color: lighten($color, 30%) !important;

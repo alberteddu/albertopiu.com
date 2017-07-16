@@ -2,6 +2,14 @@
 body.color.theme-main {
   background-color: #fdf600; }
 
+body .content-block a,
+body ol.toc li a {
+  border-bottom-color: #fffc97 !important;
+  color: #646100 !important; }
+  body .content-block a:hover,
+  body ol.toc li a:hover {
+    background-color: #fffc97 !important; }
+
 body.theme-main .content-block a,
 body.theme-main ol.toc li a {
   border-bottom-color: #fffc97 !important;
@@ -13,6 +21,14 @@ body.theme-main ol.toc li a {
 body.color.theme-pine {
   background-color: #00ff96; }
 
+body .content-block a,
+body ol.toc li a {
+  border-bottom-color: #fffc97 !important;
+  color: #646100 !important; }
+  body .content-block a:hover,
+  body ol.toc li a:hover {
+    background-color: #fffc97 !important; }
+
 body.theme-pine .content-block a,
 body.theme-pine ol.toc li a {
   border-bottom-color: #99ffd5 !important;
@@ -22,18 +38,34 @@ body.theme-pine ol.toc li a {
     background-color: #99ffd5 !important; }
 
 body.color.theme-branches {
-  background-color: #4165c1; }
+  background-color: #59339b; }
+
+body .content-block a,
+body ol.toc li a {
+  border-bottom-color: #fffc97 !important;
+  color: #646100 !important; }
+  body .content-block a:hover,
+  body ol.toc li a:hover {
+    background-color: #fffc97 !important; }
 
 body.theme-branches .content-block a,
 body.theme-branches ol.toc li a {
-  border-bottom-color: #b4c3e7 !important;
-  color: #1a294f !important; }
+  border-bottom-color: #a98dda !important;
+  color: #170d28 !important; }
   body.theme-branches .content-block a:hover,
   body.theme-branches ol.toc li a:hover {
-    background-color: #b4c3e7 !important; }
+    background-color: #a98dda !important; }
 
 body.color.theme-sillabe {
   background-color: #1c1718; }
+
+body .content-block a,
+body ol.toc li a {
+  border-bottom-color: #fffc97 !important;
+  color: #646100 !important; }
+  body .content-block a:hover,
+  body ol.toc li a:hover {
+    background-color: #fffc97 !important; }
 
 body.theme-sillabe .content-block a,
 body.theme-sillabe ol.toc li a {
@@ -45,6 +77,14 @@ body.theme-sillabe ol.toc li a {
 
 body.color.theme-octopus {
   background-color: #002f2f; }
+
+body .content-block a,
+body ol.toc li a {
+  border-bottom-color: #fffc97 !important;
+  color: #646100 !important; }
+  body .content-block a:hover,
+  body ol.toc li a:hover {
+    background-color: #fffc97 !important; }
 
 body.theme-octopus .content-block a,
 body.theme-octopus ol.toc li a {
@@ -466,6 +506,13 @@ h1, h2, h3 {
     h1, h2, h3 {
       margin-left: 80px;
       max-width: 700px; } }
+
+h1 small {
+  margin-left: 20px;
+  font-size: .8em;
+  letter-spacing: 0;
+  text-transform: none;
+  font-weight: normal; }
 
 @media (min-width: 480px) {
   h1 {

@@ -58,6 +58,10 @@ theme_parent.inverse|default(false) %} inverse-toc{% endif %}"{% endif
         {% block title_wrapper %}
             <h1>
                 {% block title %}{{ post.title|default('') }}{% endblock %}
+
+                {% if post.root %}
+                    <small><a href="/about">about</a></small>
+                {% endif %}
             </h1>
         {% endblock %}
 
@@ -68,7 +72,9 @@ theme_parent.inverse|default(false) %} inverse-toc{% endif %}"{% endif
         {% block content_wrapper %}
             <div id="page">
                 {% block content %}
-                    {{ post.content|default('')|raw }}
+                    <div class="content-block">
+                        {{ post.__content|default('')|raw }}
+                    </div>
                 {% endblock %}
             </div>
         {% endblock %}

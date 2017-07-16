@@ -1,0 +1,45 @@
+[
+    {
+        "type": "directory",
+        "name": "website",
+        "comment": "This directory is the website",
+        "files": [
+            {
+                "type": "file",
+                "fileType": "document",
+                "name": "pine.yml",
+                "comment": "Pine configuration file"
+            },
+            {
+                "type": "directory",
+                "name": "content",
+                "comment": "The directory that holds posts and files",
+                "files": [
+                    {
+                        "type": "file",
+                        "name": "home.md",
+                        "comment": "The home page post"
+                    },
+                    {
+                        "type": "directory",
+                        "name": "blog",
+                        "comment": "A section of your site dedicated to the blog",
+                        "files": []
+                    }
+                ]
+            },
+            {
+                "type": "directory",
+                "name": "themes",
+                "comment": "The directory that holds all themes",
+                "files": []
+            },
+            {
+                "type": "directory",
+                "name": "build",
+                "comment": "The directory where the site will be generated",
+                "files": []
+            }
+        ]
+    }
+]
