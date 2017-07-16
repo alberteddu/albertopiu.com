@@ -1,0 +1,319 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+                    Documentation
+            </title>
+
+    <link href="/theme/app/app.css" rel="stylesheet" type="text/css"/>
+    <link href="/theme/fonts/css/fontello.css" rel="stylesheet" type="text/css"/>
+    <link href="/theme/highlight/styles/grayscale.css" rel="stylesheet" type="text/css"/>
+</head>
+
+    
+<body class="theme-branches  inverse-toc">
+
+
+<div id="site">
+            <div id="breadcrumb">
+            
+                            <a href="/" class="item home">Alberto Piu</a>
+
+                                    <span>/</span>
+                                            <a href="/branches" class="item">Branches</a>
+
+                            
+            <span>/ Documentation</span>
+        </div>
+    
+    <div id="wrapper">
+                    <h1>
+                Documentation            </h1>
+        
+                    <h2></h2>
+        
+                    <div id="page">
+                    
+    <div class="page-items">
+    <ol class="toc">
+                    <li><a href="#--branches--docs--01-introduction">Introduction</a></li>
+                    <li><a href="#--branches--docs--02-get">NodeInterface: posts and attachments</a></li>
+                    <li><a href="#--branches--docs--03-post">The post</a></li>
+                    <li><a href="#--branches--docs--04-properties">Properties</a></li>
+                    <li><a href="#--branches--docs--05-introduction-extensions">Introduction to extensions</a></li>
+                    <li><a href="#--branches--docs--06-resolution-extensions">Extension that implement ResolutionExtensionInterface</a></li>
+                    <li><a href="#--branches--docs--07-url-extensions">Extension that implement UrlExtensionInterface</a></li>
+                    <li><a href="#--branches--docs--08-dyamic-nodes">Extension that implement DynamicNodeExtensionInterface</a></li>
+            </ol>
+
+            
+        <div id="--branches--docs--01-introduction" class="page-item content-block">
+            
+            <p>Branches is a library that allows one to manage a directory of posts and attachments.
+To install the library, composer is required.</p>
+<pre><code class="language-bash">composer require branches/branches</code></pre>
+<p>Branches provides an API that can be used to query posts and files using <em>URLs</em>.
+This makes it suitable for use in static site generators and Content Management Systems.</p>
+<p>A <strong>post</strong> is defined as a directory. All the files that are inside this directory are the <strong>attachments</strong> of
+that post. It's important to note that by default Branches does not make any assumptions on the contents of the
+attachments. </p>
+<p><strong>Extensions</strong> can be used to add <em>meaning</em> to these files. For example, an extension could parse the
+source of a text attachment when it has a <code>markdown</code> extension, adding the produced markup as a property to the file.</p>
+<p>To initialize a Branches instance, the path to a directory is required. This directory holds all the posts and
+attachments, and is itself the <em>root</em> post.</p>
+<pre><code class="language-php">$branches = new Branches\Branches('path/to/content');</code></pre>
+        </div>
+            
+        <div id="--branches--docs--02-get" class="page-item content-block">
+            <h3>NodeInterface: posts and attachments</h3>
+            <p>To get a post, the method <code>Branches\Branches::get</code> can be used. </p>
+<pre><code class="language-php">/**
+ * @param $url
+ *
+ * @return NodeInterface
+ *
+ * @throws NodeNotFoundException
+ */
+public function get($url = '/');</code></pre>
+<p>As you can see, this method can throw an Exception when the post is not found, so it's always a good idea to wrap the
+call in a try-catch block.</p>
+<pre><code class="language-php">try {
+    $post = $branches-&gt;get('blog/some-post');
+} catch (\Branches\Node\NodeNotFoundException $e) {
+    // Handle the Exception
+}</code></pre>
+<p>At this point, <code>$post</code> is an instance of <code>NodeInterface</code>. This interface applies to both posts and files, and is
+extended by <code>PostInterface</code> and <code>FileInterface</code>. The <code>get</code> method will return both posts and files depending on the
+path that is used. For example, consider the following simple directory tree.</p>
+<div class="directory-tree" data-url="/branches/docs/02-get/example-tree.json"></div>
+<pre><code class="language-php">$rootPost = $branches-&gt;get('/'); // This will be an instance of PostInterface
+$imageFile = $branches-&gt;get('img.png'); // This will be an instance of FileInterface</code></pre>
+<p>The two interfaces have in common three important methods:</p>
+<pre><code class="language-php">/**
+ * @return Url
+ */
+public function getUrl();
+
+/**
+ * @return string
+ */
+public function getPath();
+
+/**
+ * @param NodeInterface $node
+ *
+ * @return bool
+ */
+public function is(NodeInterface $node);</code></pre>
+<p>The URL will be respectively <code>/</code> and <code>/img.png</code> for the root post and for the image file, while <code>getPath</code> will return
+the absolute path to the directory and the file. The method <code>is</code> can be used to check if two nodes are the same.</p>
+<pre><code class="language-php">$rootPost-&gt;is($imageFile); // false</code></pre>
+<p><code>FileInterface</code> has only one method, <code>getPost</code>:</p>
+<pre><code class="language-php">/**
+ * @return PostInterface
+ */
+public function getPost();</code></pre>
+<p>This method returns the post that contains the file attachment. Which means:</p>
+<pre><code class="language-php">$imageFile-&gt;getPost()-&gt;is($rootPost); // true</code></pre>
+        </div>
+            
+        <div id="--branches--docs--03-post" class="page-item content-block">
+            <h3>The post</h3>
+            <p>Let's work on a slightly more complex directory tree.</p>
+<div class="directory-tree" data-url="/branches/docs/03-post/example-tree.json"></div>
+<p>With an instance of <code>PostInterface</code>, other methods are available. They mostly relate to the relationships that exist
+between posts. For example, <code>isRoot</code> can be used to determine if a post is the <em>root</em> post.</p>
+<pre><code class="language-php">$root = $branches-&gt;get('/');
+$root-&gt;isRoot(); // true</code></pre>
+<p><code>getParent</code> is used to get the parent of a post. This is of course not possible with the root post. In that case,
+this method will return <code>NULL</code>.</p>
+<pre><code class="language-php">$root = $branches-&gt;get('/');
+$root-&gt;getParent(); // NULL
+$branches-&gt;get('blog')-&gt;getParent()-&gt;is($root); // true
+$branches-&gt;get('blog')-&gt;getParent()-&gt;isRoot(); // true</code></pre>
+<p><code>getParents</code>, on the other hand, will return the list of parents of a post. The list will be empty in the case of the
+root post.</p>
+<pre><code>$post = $branches-&gt;get('/blog/first-post');
+
+foreach ($post-&gt;getParents() as $parents) {
+    echo $parents-&gt;getUrl() . PHP_EOL;
+}
+
+/*
+ * This will print
+ *  
+ *  /
+ *  /blog
+ */</code></pre>
+<p>The method <code>getChildren</code> can be used to get the children of a post. It will return an instance of <code>PostList</code>, that
+extends <code>ArrayObject</code>.</p>
+<pre><code class="language-php">/** @var \Branches\Node\PostInterface $blog */
+$blog = $branches-&gt;get('blog');
+
+foreach ($blog-&gt;getChildren() as $child) {
+    echo $child-&gt;getUrl() . PHP_EOL;
+}
+
+/*
+ * This will print
+ *  
+ *  /blog/first-post
+ *  /blog/second-post
+ *  /blog/third-post
+ */</code></pre>
+<p>On the other hand, <code>getSiblings</code> will return the list of siblings of a post.</p>
+<pre><code class="language-php">/** @var \Branches\Node\PostInterface $firstPost */
+$firstPost = $branches-&gt;get('blog/first-post');
+
+foreach ($firstPost-&gt;getSiblings() as $sibling) {
+    echo $sibling-&gt;getUrl() . PHP_EOL;
+}
+
+/*
+ * This will print
+ *  
+ *  /blog/second-post
+ *  /blog/third-post
+ */</code></pre>
+<p>Finally, the method <code>getAttachments</code> will return a list of file attachments, as an instance of <code>FileList</code>.</p>
+<pre><code class="language-php">$post = $branches-&gt;get('/blog/second-post');
+
+foreach ($post-&gt;getAttachments() as $attachment) {
+    echo $attachment-&gt;getUrl() . PHP_EOL;
+}
+
+/*
+ * This will print
+ *
+ * /blog/second-post/img.png
+ */</code></pre>
+        </div>
+            
+        <div id="--branches--docs--04-properties" class="page-item content-block">
+            <h3>Properties</h3>
+            <p>Many Branches entities, including Posts and Files, support setting and getting custom properties.
+This can be useful when using Extensions, which can add properties to posts.</p>
+<pre><code class="language-php">$post = $branches-&gt;get('/');
+$post-&gt;setProperty('is-that-root', true);
+$post-&gt;isPropertySet('is-that-root'); // true
+$post-&gt;getProperty('is-that-root', /** default value */ false); // true</code></pre>
+<p>Properties can also be accessed via the magic method <code>__get</code>.</p>
+<pre><code class="language-php">$post-&gt;{'is-that-root'}; // true</code></pre>
+        </div>
+            
+        <div id="--branches--docs--05-introduction-extensions" class="page-item content-block">
+            <h3>Introduction to extensions</h3>
+            <p>You can use Extensions to change Branches behavior, use custom components, and add functionality.
+In this chapter, we will see how can one create an Extension and register it in a Branches instance.</p>
+<p>When using Branches, a <code>\Branches\Branches</code> instance is available. This class provides a method
+called <code>useExtension</code>.</p>
+<pre><code class="language-php">public function useExtension(ExtensionInterface $extension);</code></pre>
+<p>Calling this method will register the passed <code>ExtensionInterface</code> in the Branches instance.
+Let's define a very simple extension. Every Branches extension needs to implement the interface
+<code>\Branches\Extension\ExtensionInterface</code>, which requires the method <code>getName</code>.
+This should return a string that indicates the name of the extension.</p>
+<pre><code class="language-php">class SimpleExtension implements \Branches\Extension\ExtensionInterface
+{
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'simple';
+    }
+}
+
+$branches = new Branches\Branches('path/to/content');
+$branches-&gt;useExtension(new SimpleExtension());</code></pre>
+<p>At the moment, the extension will not do anything nor add any custom functionality.
+How to do that? The Branches package provides a set of interfaces. Each one of them
+relates to a set of functionalities. When a certain extension implements a given interface,
+Branches will use that extension as needed.</p>
+        </div>
+            
+        <div id="--branches--docs--06-resolution-extensions" class="page-item content-block">
+            <h3>Extension that implement ResolutionExtensionInterface</h3>
+            <p>Branches bundles a core Extension called <code>PropertiesExtension</code>.
+This extension implements <code>ResolutionExtensionInterface</code>. </p>
+<pre><code class="language-php">class PropertiesExtension extends Extension implements ResolutionExtensionInterface
+{
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'branches-properties';
+    }
+
+    /**
+     * @param ComponentHolder $queue
+     */
+    public function getResolutionFilters(ComponentHolder $queue)
+    {
+        $queue-&gt;insert(new PropertiesResolutionFilter(), -1000);
+    }
+}</code></pre>
+<p>As you can see, extensions that implement this interface must implement also the method
+<code>getResolutionFilters</code>. This method can add new filters to the queue. Every resolution
+filter has to implement <code>ResolutionFilterInterface</code>, which includes one method.</p>
+<pre><code class="language-php">public function filter(Url $url, ResolutionInterface $resolution, ResolutionInterface $originalResolution);</code></pre>
+<p>Every time Branches tries to resolve a URL, it will call this method of all Resolution Filters
+it has registered. They can then alter the result (for example, determine that a certain
+URL will resolve to a Post &mdash; even if it does not exist; or the opposite, too), add properties, etc.</p>
+<p>The first parameter <code>$url</code> refers to the URL Branches is trying to resolve. <code>$resolution</code> is
+the current result of the process, while <code>$originalResolution</code> was the first result (which
+would have been returned in the event of no Resolution Extensions being registered). </p>
+        </div>
+            
+        <div id="--branches--docs--07-url-extensions" class="page-item content-block">
+            <h3>Extension that implement UrlExtensionInterface</h3>
+            <p>Extensions can also implement <code>UrlExtensionInterface</code>:</p>
+<pre><code class="language-php">interface UrlExtensionInterface extends ExtensionInterface
+{
+    /**
+     * @param ComponentHolder $queue
+     */
+    public function getUrlSegmentVoters(ComponentHolder $queue);
+}</code></pre>
+<p>The extension can then queue URL Segment Voters, in the same fashion as Resolution Filters.
+The elements added to this queue must implement the interface <code>UrlSegmentVoterInterface</code>.
+Classes of this type can determine how a directory name is mapped to a URL segment.</p>
+<p>For example, it can be used to have leading numbers in directory names (like <code>01-blog</code>)
+to achieve ordering, while allowing the URL to be <code>/blog</code>. It is the job of the
+segment voter to convert the string between the two formats.</p>
+        </div>
+            
+        <div id="--branches--docs--08-dyamic-nodes" class="page-item content-block">
+            <h3>Extension that implement DynamicNodeExtensionInterface</h3>
+            <p>Finally, extensions can implement <code>DynamicNodeExtensionInterface</code>:</p>
+<pre><code class="language-php">interface DynamicNodeExtensionInterface extends ExtensionInterface
+{
+    /**
+     * @param ComponentHolder $queue
+     */
+    public function getDynamicPostProviders(ComponentHolder $queue);
+
+    /**
+     * @param ComponentHolder $queue
+     */
+    public function getDynamicFileProviders(ComponentHolder $queue);
+}</code></pre>
+<p>The extension can then queue Dynamic Post and File Providers (classes that implement
+<code>DynamicPostProviderInterface</code> and <code>DynamicFileProviderInterface</code>, respectively).
+Both interfaces extend <code>DynamicNodeProviderInterface</code>, and they share the same method:</p>
+<pre><code class="language-php">public function provide(Url $url, PostInterface $post);</code></pre>
+<p>This method must then return an array of <code>DynamicPost</code> or <code>DynamicFile</code>.</p>
+        </div>
+    </div>
+            </div>
+            </div>
+</div>
+
+<script src="/theme/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="/theme/app/vendor.js"></script>
+<script src="/theme/app/app.js"></script>
+<script>require('initialize');</script>
+</body>
+</html>

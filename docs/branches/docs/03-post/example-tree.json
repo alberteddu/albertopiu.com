@@ -1,0 +1,51 @@
+[
+    {
+        "type": "directory",
+        "name": "content",
+        "comment": "This directory holds all the posts and attachments",
+        "files": [
+            {
+                "type": "file",
+                "fileType": "document",
+                "name": "article.md",
+                "comment": "The file for the root post"
+            },
+            {
+                "type": "directory",
+                "name": "blog",
+                "comment": "The post that holds all blog posts",
+                "files": [
+                    {
+                        "type": "directory",
+                        "name": "first-post",
+                        "comment": "First post of the blog",
+                        "files": [
+
+                        ]
+                    },
+                    {
+                        "type": "directory",
+                        "name": "second-post",
+                        "comment": "Second post of the blog",
+                        "files": [
+                            {
+                                "type": "file",
+                                "fileType": "image",
+                                "name": "img.png",
+                                "comment": "An attachment of the second post"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "directory",
+                        "name": "third-post",
+                        "comment": "Third post of the blog",
+                        "files": [
+
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

@@ -1,0 +1,21 @@
+[
+    {
+        "type": "directory",
+        "name": "content",
+        "comment": "This directory holds all the posts and attachments",
+        "files": [
+            {
+                "type": "file",
+                "fileType": "document",
+                "name": "article.md",
+                "comment": "A text file"
+            },
+            {
+                "type": "file",
+                "fileType": "image",
+                "name": "img.png",
+                "comment": "An image attachment that belongs to the root post"
+            }
+        ]
+    }
+]
