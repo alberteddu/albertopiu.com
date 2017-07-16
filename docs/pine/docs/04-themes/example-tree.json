@@ -1,0 +1,48 @@
+[
+    {
+        "type": "directory",
+        "name": "default",
+        "comment": "The directory that holds all theme files",
+        "files": [
+            {
+                "type": "directory",
+                "name": "config",
+                "comment": "The directory that holds configuration for the theme",
+                "files": [
+                    {
+                        "type": "file",
+                        "name": "theme.yml",
+                        "fileType": "document",
+                        "comment": "Configuration for the theme"
+                    }
+                ]
+            },
+            {
+                "type": "directory",
+                "name": "templates",
+                "comment": "The directory that holds the templates of the theme",
+                "files": [
+                    {
+                        "type": "file",
+                        "name": "default.html.twig",
+                        "fileType": "document",
+                        "comment": "The default layout template, powered by Twig"
+                    }
+                ]
+            },
+            {
+                "type": "directory",
+                "name": "public",
+                "comment": "The directory with the theme assets",
+                "files": [
+                    {
+                        "type": "file",
+                        "name": "style.css",
+                        "fileType": "document",
+                        "comment": "The example of an asset"
+                    }
+                ]
+            }
+        ]
+    }
+]

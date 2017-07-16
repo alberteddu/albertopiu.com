@@ -36,11 +36,11 @@ ul {
 
 h1 {
     font-family:    $font-condensed;
-    font-size:      18px;
+    font-size:      20px;
     font-weight:    700;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-top:     80px;
+    margin-top:     70px;
     margin-bottom:  30px;
 
     .meta {
@@ -55,7 +55,7 @@ h1 {
 
 h2, h3 {
     font-family: $font-serif;
-    font-size:   18px;
+    font-size:   22px;
     font-weight: normal;
     line-height: 32px;
     margin:      50px 0;
@@ -63,7 +63,7 @@ h2, h3 {
 
 h3 {
     font-family: $font-condensed;
-    font-size:   1.3em;
+    font-size:   18px;
     margin:      40px 0 30px;
     font-weight: bold;
 }
@@ -87,29 +87,42 @@ h1 small {
         margin-bottom: 40px;
     }
 
-    h2, h3 {
+    h2 {
         font-size: 32px;
         line-height: 50px;
     }
 
     h3 {
         font-size: 26px;
+        line-height: 40px;
     }
 }
 
 @media (min-width: 800px) {
     h1 {
         font-size: 22px;
-        margin-top:    100px;
+        margin-top:    120px;
         margin-bottom: 60px;
     }
 
-    h2, h3 {
+    h2 {
         font-size: 45px;
         line-height: 60px;
     }
 
     h3 {
         font-size: 28px;
+        line-height: 50px;
     }
+}
+
+::selection {
+    background: $selection-background;
+    color: $selection-color;
+    opacity: 1;
+}
+::-moz-selection {
+    background: $selection-background;
+    color: $selection-color;
+    opacity: 1;
 }

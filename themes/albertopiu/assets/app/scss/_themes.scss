@@ -22,4 +22,13 @@
             background-color: lighten($color, 30%) !important;
         }
     }
+
+    body.theme-#{$theme}.inverse-theme .content-block a,
+    body.theme-#{$theme}.inverse-theme ol.toc li a {
+        border-bottom-color: lighten($color, 40%) !important;
+
+        &:hover {
+            background-color: lighten($color, 40%) !important;
+        }
+    }
 }

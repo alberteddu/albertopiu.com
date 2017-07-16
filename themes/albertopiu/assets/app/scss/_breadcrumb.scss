@@ -1,7 +1,7 @@
 #site {
     #breadcrumb {
         position:      absolute;
-        margin-top:    -70px;
+        margin-top:    -40px;
         line-height:   30px;
         padding-left:  $mobile-distance;
         padding-right: 5px;
@@ -13,7 +13,8 @@
             background-color: transparent;
             color:            $semi-transparent-font-color;
             display:          inline-block;
-            padding:          0;
+            padding:          0 !important;
+            line-height: 20px;
         }
 
         .item.home {
@@ -31,11 +32,13 @@ body.inverse #site {
 @media (min-width: 480px) {
     #site #breadcrumb {
         padding-left: $tablet-distance;
+        margin-top:   -50px;
     }
 }
 
 @media (min-width: 800px) {
     #site #breadcrumb {
         padding-left: $desktop-distance;
+        margin-top:   -60px;
     }
 }

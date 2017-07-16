@@ -1,16 +1,17 @@
 <div class="page-items">
-    <ol class="toc">
-        {% for item in items %}
-            <li><a href="#{{ item.anchor }}">{{ item.title }}</a></li>
-        {% endfor %}
-    </ol>
+    <div class="toc-container">
+        <ol class="toc">
+            {% for item in items %}
+                <li><a href="#{{ item.anchor }}">{{ item.title }}</a></li>
+            {% endfor %}
+        </ol>
+    </div>
 
     {% for item in items %}
         {% set skip_title = item.property('skip-title', false) %}
 
         <div id="{{ item.anchor }}" class="page-item content-block">
-            {% if not skip_title %}<h3>{{ item.title }}</h3>{%
-            endif %}
+            {% if not skip_title %}<h3>{{ item.title }}</h3>{% endif %}
 
             {{ item.__content|raw }}
         </div>

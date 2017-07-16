@@ -31,7 +31,7 @@
 
 <body{% if post.theme|default(false) %} class="{% if show_color %}color {% endif %}theme-{{ post.theme }} {% if post
 .inverse|default(false) %}inverse{% endif %}"{% elseif theme_parent %} class="theme-{{ theme_parent.theme }} {% if
-theme_parent.inverse|default(false) %} inverse-toc{% endif %}"{% endif
+theme_parent.inverse|default(false) %} inverse-theme{% endif %}"{% endif
 %}>
 
 {% block head %}

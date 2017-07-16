@@ -39,11 +39,14 @@
                     <div id="page">
                     
     <div class="page-items">
-    <ol class="toc">
-                    <li><a href="#--pine--docs--01-introduction">Introduction</a></li>
-                    <li><a href="#--pine--docs--02-quick-start">Quick start</a></li>
-                    <li><a href="#--pine--docs--03-configuration">Configuration</a></li>
-            </ol>
+    <div class="toc-container">
+        <ol class="toc">
+                            <li><a href="#--pine--docs--01-introduction">Introduction</a></li>
+                            <li><a href="#--pine--docs--02-configuration">Configuration</a></li>
+                            <li><a href="#--pine--docs--03-content">Content</a></li>
+                            <li><a href="#--pine--docs--04-themes">Themes</a></li>
+                    </ol>
+    </div>
 
             
         <div id="--pine--docs--01-introduction" class="page-item content-block">
@@ -52,19 +55,64 @@
 convert a directory of content to a static collection of HTML and CSS.
 You can download the latest .phar executable <a href="https://alberteddu.github.io/pine/downloads/pine-latest.phar">here</a>. </p>
 <p>After that, you can add the executable to the <code>$PATH</code> and just use
-<code>pine</code>. Finally, you can create a new site with:</p>
-<pre><code class="language-bash">pine new blog # Where blog is the name of your site</code></pre>
+<code>pine</code>. At this point, you can create a new site with:</p>
+<pre><code class="language-bash">pine new blog # Where blog is the name of your site
+cd blog</code></pre>
+<p>To serve the file at <code>http://127.0.0.1:8080</code> for development, use the <code>serve</code> command:</p>
+<pre><code class="language-bash">pine serve</code></pre>
+<p>Finally, use the command <code>build</code> to generate the static site.</p>
+<pre><code class="language-bash">pine build</code></pre>
         </div>
             
-        <div id="--pine--docs--02-quick-start" class="page-item content-block">
-            <h3>Quick start</h3>
-            <p>To generate a website, Pine needs <strong>content</strong> and a <strong>theme</strong>. A pine website will look like this:</p>
-<div class="directory-tree" data-url="/pine/docs/02-quick-start/example-tree.json"></div>
-        </div>
-            
-        <div id="--pine--docs--03-configuration" class="page-item content-block">
+        <div id="--pine--docs--02-configuration" class="page-item content-block">
             <h3>Configuration</h3>
-            <p>Pine is configured via a YAML file present in the root of your site. </p>
+            <p>To generate a website, Pine needs <strong>content</strong> and a <strong>theme</strong>. A pine website will look like this:</p>
+<div class="directory-tree" data-url="/pine/docs/02-configuration/example-tree.json"></div>
+<p>The configuration file allows you to customize the name of the directories. The default
+configuration looks like this:</p>
+<pre><code class="language-yaml">theme: default
+content: content
+build: build
+plugins: []</code></pre>
+<p>The options <code>content</code> and <code>build</code> refer to what directories are to be used for storing
+respectively the content files and the generated site.
+With <code>theme</code>, you can choose the active theme, which is to be found in the <code>themes</code> directory.
+And finally, <code>plugins</code> is a list of PHP classes that pine will use as plugins.</p>
+        </div>
+            
+        <div id="--pine--docs--03-content" class="page-item content-block">
+            <h3>Content</h3>
+            <p>Content files reside in the <code>content</code> directory (or in the directory that is set in the configuration
+file under <code>content</code>). As described in the documentation of <a href="/branches/docs">Branches</a>, every folder contained
+in this directory is a post, where the folder itself is considered the root post.</p>
+<p>Pine will look for a markdown file in every post, to be used as the content file. This file
+will contain a YAML front matter where the post meta data can be specified, and a markdown
+body.</p>
+<pre><code class="language-markdown">---
+title: A post title
+layout: blog
+---
+
+The post *content*.</code></pre>
+<p>As you can see here, a title is included, as well as a layout. Pine will use this layout,
+or it will use <code>default</code> if none is specified. More on layouts can be found on the next section.</p>
+<p>Every other file in a post is considered an attachment.</p>
+        </div>
+            
+        <div id="--pine--docs--04-themes" class="page-item content-block">
+            <h3>Themes</h3>
+            <p>A single pine theme will contain some configuration, public files (like JavaScript, or CSS), and twig templates.</p>
+<div class="directory-tree" data-url="/pine/docs/04-themes/example-tree.json"></div>
+<p>When the site is generated, all contents of the theme public directory will be moved to the
+generated site directory, where they will be under a folder called <code>theme</code>.</p>
+<p>The templates can access the configuration of the theme and the site by using the variables
+<code>theme</code> and <code>site</code>, respectively. For example, a theme could support both &quot;serif&quot; and &quot;sans-serif&quot;
+styles by having the configuration on the theme config directory:</p>
+<pre><code class="language-yaml">style: serif</code></pre>
+<p>And in the templates, the configuration value can be accessed with:</p>
+<pre><code class="language-html">&lt;body class="style-{{ theme.config.style }}"&gt;
+    &lt;h1&gt;{{ site.config.title }}&lt;/h1&gt;
+    ...</code></pre>
         </div>
     </div>
             </div>

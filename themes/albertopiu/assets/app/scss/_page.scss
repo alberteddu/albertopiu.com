@@ -34,6 +34,7 @@
     border-bottom: 4px solid;
     padding:       0 !important;
     display:       inline-block;
+    border-radius: 0;
 
     &:hover {
         color: black !important;
@@ -53,7 +54,7 @@ pre {
 }
 
 pre {
-    background: #eaeef3 !important;
+    background-color: #efefef !important;
 }
 
 code {
@@ -62,7 +63,7 @@ code {
 
 p > code {
     font-size:     13px;
-    background:    #eaeef3;
+    background:    #efefef;
     padding:       5px 5px 2px;
     margin:        auto 2px;
     line-height:   0;
@@ -94,7 +95,7 @@ pre > code {
     }
 
     p > code {
-        font-size: 13px;
+        font-size: 14px;
     }
 }
 
@@ -106,10 +107,15 @@ pre > code {
 
     pre {
         padding-left: $desktop-distance;
-        font-size:    14px;
+        font-size:    16px;
+        line-height:  30px;
     }
 
     pre code {
         padding: 20px 0 !important;
+    }
+
+    p > code {
+        font-size: 16px;
     }
 }
