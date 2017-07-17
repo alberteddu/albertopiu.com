@@ -10,7 +10,7 @@ convert a directory of content to a static collection of HTML and CSS.
 You can download the latest .phar executable [here][latest]. 
 
 After that, you can add the executable to the `$PATH` and just use
-`pine`. At this point, you can create a new site with:
+`pine` from the command line. At this point, you can create a new site with:
 
 ```bash
 pine new blog # Where blog is the name of your site

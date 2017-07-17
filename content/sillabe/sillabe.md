@@ -1,7 +1,7 @@
 ---
 title: Sillabe
-subtitle: Where I write<br>serial stories.
-description: Where I write serial stories.
+subtitle: Where I write serial<br>stories, in English.
+description: Where I write serial stories, in English.
 type: item
 inverse: yes
 theme: sillabe

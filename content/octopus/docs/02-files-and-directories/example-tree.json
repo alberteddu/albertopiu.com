@@ -1,0 +1,28 @@
+[
+    {
+        "type": "directory",
+        "name": "result",
+        "comment": "The target directory",
+        "files": [
+            {
+                "type": "directory",
+                "name": "about",
+                "comment": "This directory was created automatically",
+                "files": [
+                    {
+                        "type": "file",
+                        "name": "readme.md",
+                        "fileType": "document",
+                        "comment": "The generated file"
+                    },
+                    {
+                        "type": "directory",
+                        "name": "empty",
+                        "comment": "The generated directory",
+                        "files": []
+                    }
+                ]
+            }
+        ]
+    }
+]

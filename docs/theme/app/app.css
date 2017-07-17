@@ -52,7 +52,7 @@ body.theme-pine.inverse-theme ol.toc li a {
     background-color: #ccffea !important; }
 
 body.color.theme-branches {
-  background-color: #59339b; }
+  background-color: #6894cf; }
 
 body .content-block a,
 body ol.toc li a {
@@ -64,18 +64,18 @@ body ol.toc li a {
 
 body.theme-branches .content-block a,
 body.theme-branches ol.toc li a {
-  border-bottom-color: #a98dda !important;
-  color: #170d28 !important; }
+  border-bottom-color: #dce6f4 !important;
+  color: #264978 !important; }
   body.theme-branches .content-block a:hover,
   body.theme-branches ol.toc li a:hover {
-    background-color: #a98dda !important; }
+    background-color: #dce6f4 !important; }
 
 body.theme-branches.inverse-theme .content-block a,
 body.theme-branches.inverse-theme ol.toc li a {
-  border-bottom-color: #c6b4e6 !important; }
+  border-bottom-color: white !important; }
   body.theme-branches.inverse-theme .content-block a:hover,
   body.theme-branches.inverse-theme ol.toc li a:hover {
-    background-color: #c6b4e6 !important; }
+    background-color: white !important; }
 
 body.color.theme-sillabe {
   background-color: #1c1718; }
@@ -185,6 +185,9 @@ a.back-to-top {
   text-transform: uppercase;
   display: block;
   color: rgba(0, 0, 0, 0.2) !important; }
+
+h1 small a {
+  margin-right: 15px; }
 
 #site #breadcrumb {
   position: absolute;
@@ -358,14 +361,14 @@ pre {
   margin-top: 0; }
 
 pre {
-  background-color: #efefef !important; }
+  background-color: #f3f4e8 !important; }
 
 code {
   font-variant-ligatures: none; }
 
 p > code {
   font-size: 13px;
-  background: #efefef;
+  background: #f3f4e8;
   padding: 5px 5px 2px;
   margin: auto 2px;
   line-height: 0;
@@ -428,7 +431,7 @@ ul#actions {
       border-bottom: 4px solid white; }
 
 .directory-tree-component {
-  background: #efefef !important;
+  background: #f3f4e8 !important;
   overflow: hidden;
   margin-top: 30px;
   margin-bottom: 30px;

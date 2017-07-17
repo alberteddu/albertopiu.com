@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
     <title>
                     Documentation
@@ -42,31 +42,364 @@
     <div class="toc-container">
         <ol class="toc">
                             <li><a href="#--octopus--docs--01-introduction">Introduction</a></li>
-                            <li><a href="#--octopus--docs--02-quick-start">Quick start</a></li>
-                            <li><a href="#--octopus--docs--03-configuration">Configuration</a></li>
+                            <li><a href="#--octopus--docs--02-files-and-directories">Files and directories</a></li>
+                            <li><a href="#--octopus--docs--03-templates">Templates</a></li>
+                            <li><a href="#--octopus--docs--04-variables">Variables</a></li>
+                            <li><a href="#--octopus--docs--05-blueprints">Blueprints</a></li>
+                            <li><a href="#--octopus--docs--06-blueprint-loops">Blueprint loops and grouping</a></li>
                     </ol>
     </div>
 
             
         <div id="--octopus--docs--01-introduction" class="page-item content-block">
             
-            <p>Pine is a static site generator. It uses <a href="/branches">Branches</a> at its core to
-convert a directory of content to a static collection of HTML and CSS.
-You can download the latest .phar executable <a href="https://alberteddu.github.io/pine/downloads/pine-latest.phar">here</a>. </p>
+            <p>Octopus is a small utility that can be used to quickly generate files and directories.
+To use Octopus, a configuration file must be created. This file is a JSON (<code>octopus.json</code>)
+and it contains directives, variables, and blueprints, that determine how the
+directory tree will look in the end.</p>
+<p>I wrote Octopus to speed up creation of files and directories of a certain type
+of projects. These projects contain files which structure is verbose and repetitive,
+and can be easily described with templates.</p>
+<p>You can download the latest .phar executable <a href="https://alberteddu.github.io/octopus/downloads/octopus-latest.phar">here</a>. </p>
 <p>After that, you can add the executable to the <code>$PATH</code> and just use
-<code>pine</code>. Finally, you can create a new site with:</p>
-<pre><code class="language-bash">pine new blog # Where blog is the name of your site</code></pre>
+<code>octopus</code> from the command line. At this point, as long as a valid <code>octopus.json</code>
+is present in the current working directory, you can generate the directory
+tree by executing:</p>
+<pre><code class="language-bash">octopus build</code></pre>
         </div>
             
-        <div id="--octopus--docs--02-quick-start" class="page-item content-block">
-            <h3>Quick start</h3>
-            <p>To generate a website, Pine needs <strong>content</strong> and a <strong>theme</strong>. A pine website will look like this:</p>
-<div class="directory-tree" data-url="/pine/docs/02-quick-start/example-tree.json"></div>
+        <div id="--octopus--docs--02-files-and-directories" class="page-item content-block">
+            <h3>Files and directories</h3>
+            <p>The simplest <code>octopus.json</code> will look like this:</p>
+<pre><code class="language-json">{
+    "output": []
+}</code></pre>
+<p>It will not generate any files. It is useful to specify the <code>target</code> property as it
+will decide where the directory tree will be generated. The value of this property
+defaults to <code>./</code>.</p>
+<pre><code class="language-json">{
+    "target": "./result",
+    "output": []
+}</code></pre>
+<p><code>output</code> is an array that contains objects. Every item in this array corresponds
+to a file or directory being created. Let's add one file and an empty directory.</p>
+<pre><code class="language-json">{
+    "target": "./result",
+    "output": [
+        {
+            "type": "file",
+            "path": "about/readme.md"
+        },
+        {
+            "type": "directory",
+            "path": "empty"
+        }
+    ]
+}</code></pre>
+<p>If we build now, the resulting tree will look like this:</p>
+<div class="directory-tree" data-url="/octopus/docs/02-files-and-directories/example-tree.json"></div>
+<p>And some messages will be printed on the console:</p>
+<pre><code class="language-bash">Wrote file "/.../result/about/readme.md"
+Wrote directory "/.../result/empty"</code></pre>
+<p>If we try to build again, Octopus will warn us that some files may be rewritten.
+We can choose to skip those files, or overwrite them.</p>
+<pre><code class="language-bash">File /.../result/about/readme.md already exists. Overwrite?
+  [0] Skip
+  [1] Overwrite
+  [2] Overwrite all
+ &gt; 2
+Overwrote file "/.../result/about/readme.md"
+Directory exists: "/.../result/empty"</code></pre>
         </div>
             
-        <div id="--octopus--docs--03-configuration" class="page-item content-block">
-            <h3>Configuration</h3>
-            <p>Pine is configured via a YAML file present in the root of your site. </p>
+        <div id="--octopus--docs--03-templates" class="page-item content-block">
+            <h3>Templates</h3>
+            <p>What if we want to specify the contents of the files that Octopus is generating?
+This is done by using templates. By default, Octopus will look for a <code>templates</code>
+directory in the same level as the <code>octopus.json</code> file. But we can also set the
+path to a custom value. Let's add a new file by using a template.</p>
+<pre><code class="language-json">{
+    "target": "./result",
+    "templates": "custom-templates",
+    "output": [
+        {
+            "type": "file",
+            "path": "readme.md",
+            "template": "readme.md.twig"
+        }
+    ]
+}</code></pre>
+<p>The resulting file will have the contents of the template <code>readme.md.twig</code>.</p>
+        </div>
+            
+        <div id="--octopus--docs--04-variables" class="page-item content-block">
+            <h3>Variables</h3>
+            <p>Some variables can be defined in the file <code>octopus.json</code>. The variables can then
+be used when defining the path of a file or directory, but also
+the name of the template to be used.</p>
+<p>Variables can also be accessed inside the Twig templates.</p>
+<pre><code class="language-json">{
+    "target": "./result",
+    "variables": {
+        "name": "readme"
+    },
+    "templates": "custom-templates",
+    "output": [
+        {
+            "type": "file",
+            "path": "readme.md",
+            "template": "{{ configuration.variables.name }}.md.twig"
+        }
+    ]
+}</code></pre>
+        </div>
+            
+        <div id="--octopus--docs--05-blueprints" class="page-item content-block">
+            <h3>Blueprints</h3>
+            <p>Blueprints are a very important concept in the usage of Octopus. With blueprints, it's possible
+to define a type of resource, and its instances, while also validating the properties
+of each one of these instances.</p>
+<p>For example, let's assume that we are working on an HTML file. We want
+this HTML file to contain version numbers and download links of an open source
+library we are maintaining. We don't want to write the HTML code over and over
+every time the versions change &mdash; we just want to write it once as a template,
+and then have the file generated by Octopus.</p>
+<p>Given these specifications, we know we want a series of <code>software releases</code>,
+where each release has the properties <code>link</code>, <code>version</code>, and an optional boolean
+<code>stable</code> that defaults to <code>true</code>. Also we have a generic variable that defines
+the name of our software.</p>
+<p>Blueprints are defined under the <code>blueprints</code> property in the <code>octopus.json</code> file.
+This property will look like an object. To add a blueprint, it is enough to define
+a new property in this object. This is how an empty blueprint looks.</p>
+<pre><code class="language-json">{
+    "blueprints": {
+        "my-blueprint": {
+            "variables": {}
+        }
+    }
+}</code></pre>
+<p><code>variables</code> will contain the definition of all the variables that this blueprint
+supports. To add definitions, it is enough to specify the property (name of the variable),
+and an object. For example:</p>
+<pre><code class="language-json">{
+    "blueprints": {
+        "my-blueprint": {
+            "variables": {
+                "my-variable": {
+                    "type": "string",
+                    "required": true
+                }
+            }
+        }
+    }
+}</code></pre>
+<p>A variable definition must contain a <code>type</code> property (<code>string</code>, <code>integer</code>, or <code>boolean</code>).
+By default, the property <code>required</code> is <code>false</code> and <code>default</code> is <code>null</code>. Knowing this, we can
+define the blueprint for our JSON example.</p>
+<pre><code class="language-json">{
+    "variables": {
+        "name": "my-software"
+    },
+
+    "blueprints": {
+        "release": {
+            "variables": {
+                "link": {
+                    "type": "string",
+                    "required": true
+                },
+                "version": {
+                    "type": "string",
+                    "required": true
+                },
+                "stable": {
+                    "type": "boolean",
+                    "default": true
+                }
+            }
+        }
+    },
+
+    "data": {},
+
+    "output": []
+}</code></pre>
+<p>As you can see, we have a new property called <code>data</code>. This is an object where
+every key is the name of a defined blueprint, and its property is a list of objects
+that are the instances of the blueprint. For example:</p>
+<pre><code class="language-json">{
+    "data": {
+        "release": [
+            {
+                "link": "http://example.com/downloads/0.0.1/software.phar",
+                "version": "0.0.1"
+            },
+            {
+                "link": "http://example.com/downloads/unstable/0.0.2beta/software.phar",
+                "version": "0.0.2beta",
+                "stable": false
+            }
+        ]
+    }
+}</code></pre>
+<p>We defined two releases, one of them unstable, and we provided the link and the version
+just like the blueprint defines. Note that Octopus <em>will</em> validate the <code>data</code> object
+using the definition provided in the blueprint configuration.</p>
+<p>At this moment, Octopus will not generate any files, because the <code>output</code> property
+is still empty. We can add the definition of our HTML file now.</p>
+<pre><code class="language-json">{
+    "output": [
+        {
+            "type": "file",
+            "path": "releases.html",
+            "template": "releases.html.twig"
+        }
+    ]
+}</code></pre>
+<p>And we can define our template like so:</p>
+<pre><code class="language-html">&lt;h1&gt;
+    {{ configuration.variables.name }}
+&lt;/h1&gt;
+
+&lt;ul class="releases"&gt;
+    {% for release in data.release %}
+        &lt;li class="release {% if release.stable %}stable{% else %}unstable{% endif %}"&gt;
+            &lt;h2&gt;{{ release.version }}&lt;/h2&gt;
+            &lt;a href="{{ release.link }}"&gt;Download&lt;/a&gt;
+        &lt;/li&gt;
+    {% endfor %}
+&lt;/ul&gt;</code></pre>
+<p>Building now will generate the file as we expect it.</p>
+        </div>
+            
+        <div id="--octopus--docs--06-blueprint-loops" class="page-item content-block">
+            <h3>Blueprint loops and grouping</h3>
+            <p>Sometimes it is useful to generate one file or one directory per each blueprint instance defined in data.
+This can be done by specifying the property <code>blueprint</code> in a file or directory definition.</p>
+<pre><code class="language-json">{
+    "output": [
+        {
+            "type": "file",
+            "path": "some-path",
+            "blueprint": "release"
+        }
+    ]
+}</code></pre>
+<p>In this example, this file will be generated for every instance of the blueprint <code>release</code>.
+Of course, this will keep generating the same file over and over. By specifing <code>blueprint</code>,
+we'll have access to another template property with the same name. Thus we can do:</p>
+<pre><code class="language-json">{
+    "output": [
+        {
+            "type": "file",
+            "path": "{{ blueprint.version }}.html",
+            "blueprint": "release",
+            "template": "{% if not blueprint.stable %}un{% endif %}stable.html.twig"
+        }
+    ]
+}</code></pre>
+<p>Now, let's go back to our release example. We might want to manage multiple libraries
+with this method. That's why we would like to add a new blueprint called <code>library</code>.</p>
+<pre><code class="language-json">"blueprints": {
+    "library": {
+        "variables": {
+            "name": {
+                "type": "string",
+                "required": true
+            }
+        }
+    },
+    "release": {
+        "variables": {
+            "library": {
+                "type": "string",
+                "required": true
+            },
+            "link": {
+                "type": "string",
+                "required": true
+            },
+            "version": {
+                "type": "string",
+                "required": true
+            },
+            "stable": {
+                "type": "boolean",
+                "default": true
+            }
+        }
+    }
+}</code></pre>
+<p>As you can see, we also added a variable <code>library</code> to the <code>release</code> blueprint.
+This way, we can define multiple libraries and multiple versions of every library.</p>
+<p>However, how can we generate one HTML <em>per library</em>? We could loop over the library
+blueprint instances, but there's a better way to achieve this result. We can use
+the <code>group</code> property in our file definition. If this property and the <code>blueprint</code>
+property are defined, Octopus will first group the data instances by the provided value.</p>
+<p>We can change our file definition this way:</p>
+<pre><code class="language-json">{
+    "output": [
+        {
+            "type": "file",
+            "path": "{{ blueprints[0].library }}.html",
+            "template": "releases.html.twig",
+            "blueprint": "release",
+            "group": "library"
+        }
+    ]
+}</code></pre>
+<p>Every time the file is generated, the variable <code>blueprint</code> will not be available, because
+now the instances are grouped by the property <code>library</code>. Now, instead, the variable
+<code>blueprints</code> will be available. It will contain the list of instances of the current group.</p>
+<p>Therefore we also have to slightly change our template:</p>
+<pre><code class="language-html">&lt;h1&gt;
+    {{ blueprints[0].library }} &lt;!-- this changed --&gt;
+&lt;/h1&gt;
+
+&lt;ul class="releases"&gt;
+    &lt;!-- and also this changed --&gt;
+    {% for release in blueprints %}
+        &lt;li class="release {% if release.stable %}stable{% else %}unstable{% endif %}"&gt;
+            &lt;h2&gt;{{ release.version }}&lt;/h2&gt;
+            &lt;a href="{{ release.link }}"&gt;Download&lt;/a&gt;
+        &lt;/li&gt;
+    {% endfor %}
+&lt;/ul&gt;</code></pre>
+<p>Finally, let's add some libraries information:</p>
+<pre><code class="language-json">{
+    "data": {
+        "library": [
+            {
+                "name": "my-awesome-library"
+            },
+            {
+                "name": "my-other-awesome-library"
+            }
+        ],
+        "release": [
+            {
+                "library": "my-awesome-library",
+                "link": "http://example.com/downloads/0.0.1/software.phar",
+                "version": "0.0.1"
+            },
+            {
+                "library": "my-awesome-library",
+                "link": "http://example.com/downloads/unstable/0.0.2beta/software.phar",
+                "version": "0.0.2beta",
+                "stable": false
+            },
+            {
+                "library": "my-other-awesome-library",
+                "link": "http://example.com/downloads/0.0.1/other-library.phar",
+                "version": "0.0.1"
+            }
+        ]
+    }
+}</code></pre>
+<p>Building now will generate two files, as expected, where each file will contain
+the version information just like before.</p>
+<pre><code class="language-bash">Wrote file "/.../result/my-awesome-library.html"
+Wrote file "/.../result/my-other-awesome-library.html"</code></pre>
         </div>
     </div>
             </div>

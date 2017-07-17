@@ -5,17 +5,28 @@ layout: doc
 skip-title: true
 ---
 
-Pine is a static site generator. It uses [Branches][branches] at its core to
-convert a directory of content to a static collection of HTML and CSS.
+Octopus is a small utility that can be used to quickly generate files and directories.
+To use Octopus, a configuration file must be created. This file is a JSON (`octopus.json`)
+and it contains directives, variables, and blueprints, that determine how the
+directory tree will look in the end.
+
+I wrote Octopus to speed up creation of files and directories of a certain type 
+of projects. These projects contain files which structure is verbose and repetitive, 
+and can be easily described with templates.
+
 You can download the latest .phar executable [here][latest]. 
 
 After that, you can add the executable to the `$PATH` and just use
-`pine`. Finally, you can create a new site with:
+`octopus` from the command line. At this point, as long as a valid `octopus.json`
+is present in the current working directory, you can generate the directory
+tree by executing:
 
 ```bash
-pine new blog # Where blog is the name of your site
+octopus build
 ```
 
-
 [branches]: /branches
-[latest]: https://alberteddu.github.io/pine/downloads/pine-latest.phar
+[latest]: https://alberteddu.github.io/octopus/downloads/octopus-latest.phar
+
+
+

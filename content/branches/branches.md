@@ -5,7 +5,6 @@ description: Library to manage a directory of posts and attachments.
 type: item
 theme: branches
 meta: PHP library
-inverse: yes
 actions:
     - title: Github
       url: https://github.com/alberteddu/branches

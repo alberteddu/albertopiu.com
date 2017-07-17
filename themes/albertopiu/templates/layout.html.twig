@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
     <title>
         {% if post.properties.page_title is defined %}
@@ -31,8 +31,7 @@
 
 <body{% if post.theme|default(false) %} class="{% if show_color %}color {% endif %}theme-{{ post.theme }} {% if post
 .inverse|default(false) %}inverse{% endif %}"{% elseif theme_parent %} class="theme-{{ theme_parent.theme }} {% if
-theme_parent.inverse|default(false) %} inverse-theme{% endif %}"{% endif
-%}>
+theme_parent.inverse|default(false) %} inverse-theme{% endif %}"{% endif %}>
 
 {% block head %}
 {% endblock %}
@@ -60,7 +59,11 @@ theme_parent.inverse|default(false) %} inverse-theme{% endif %}"{% endif
                 {% block title %}{{ post.title|default('') }}{% endblock %}
 
                 {% if post.root %}
-                    <small><a href="/about">about</a></small>
+                    <small>
+                        {% for link in site.config.links %}
+                            <a href="{{ link.link }}">{{ link.name }}</a>
+                        {% endfor %}
+                    </small>
                 {% endif %}
             </h1>
         {% endblock %}

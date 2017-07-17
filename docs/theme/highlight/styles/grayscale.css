@@ -5,96 +5,101 @@ grayscale style (c) MY Sun <simonmysun@gmail.com>
 */
 
 .hljs {
-  display: block;
-  overflow-x: auto;
-  color: #333;
-  background: #fff;
+    display:    block;
+    overflow-x: auto;
+    color:      #333333;
+    background: #ffffff;
 }
 
 .hljs-comment,
 .hljs-quote {
-  color: #777;
-  font-style: italic;
+    color:      #777777;
+    font-style: italic;
 }
 
 .hljs-keyword,
 .hljs-selector-tag,
 .hljs-subst {
-  color: #333;
-  font-weight: 700;
+    color:       #333333;
+    font-weight: 700;
 }
 
 .hljs-number,
 .hljs-literal {
-  color: #777;
+    color: #777777;
 }
 
 .hljs-string,
 .hljs-doctag,
 .hljs-formula {
-  color: #333;
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2O8e/fufwYGBgZBQUEQxcCIIfDu3Tuwivfv30NUoAsAALHpFMMLqZlPAAAAAElFTkSuQmCC) repeat;
+    color:            #333333;
+    /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2O8e/fufwYGBgZBQUEQxcCIIfDu3Tuwivfv30NUoAsAALHpFMMLqZlPAAAAAElFTkSuQmCC) repeat;*/
+    background-color: #e0e1d5;
 }
 
 .hljs-title,
 .hljs-section,
 .hljs-selector-id {
-  color: #000;
-  font-weight: 700;
+    color:       #000000;
+    font-weight: 700;
 }
 
 .hljs-subst {
-  font-weight: normal;
+    font-weight: normal;
 }
 
 .hljs-class .hljs-title,
 .hljs-type,
 .hljs-name {
-  color: #333;
-  font-weight: 700;
+    color:       #333333;
+    font-weight: 700;
 }
 
 .hljs-tag {
-  color: #333;
+    color: #333333;
 }
 
 .hljs-regexp {
-    color: #333;
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAICAYAAADA+m62AAAAPUlEQVQYV2NkQAN37979r6yszIgujiIAU4RNMVwhuiQ6H6wQl3XI4oy4FMHcCJPHcDS6J2A2EqUQpJhohQDexSef15DBCwAAAABJRU5ErkJggg==) repeat;
+    color:            #333333;
+    /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAICAYAAADA+m62AAAAPUlEQVQYV2NkQAN37979r6yszIgujiIAU4RNMVwhuiQ6H6wQl3XI4oy4FMHcCJPHcDS6J2A2EqUQpJhohQDexSef15DBCwAAAABJRU5ErkJggg==) repeat;*/
+    background-color: #e0e1d5;
 }
 
 .hljs-symbol,
 .hljs-bullet,
 .hljs-link {
-  color: #000;
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAO7d+/+z4gsBhJwdXVlhAvCBECKwIIwAbhKZBUwBQA6hBpm5efZsgAAAABJRU5ErkJggg==) repeat;
+    color:      #000000;
+    /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAO7d+/+z4gsBhJwdXVlhAvCBECKwIIwAbhKZBUwBQA6hBpm5efZsgAAAABJRU5ErkJggg==) repeat;*/
+    background-color: #e0e1d5;
 }
 
 .hljs-built_in,
 .hljs-builtin-name {
-  color: #000;
-  text-decoration: underline;
+    color:           #000000;
+    text-decoration: underline;
 }
 
 .hljs-meta {
-  color: #999;
-  font-weight: 700;
+    color:       #999999;
+    font-weight: 700;
 }
 
 .hljs-deletion {
-  color: #fff;
-  background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAADCAYAAABS3WWCAAAAE0lEQVQIW2MMDQ39zzhz5kwIAQAyxweWgUHd1AAAAABJRU5ErkJggg==) repeat;
+    color:      #ffffff;
+    /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAADCAYAAABS3WWCAAAAE0lEQVQIW2MMDQ39zzhz5kwIAQAyxweWgUHd1AAAAABJRU5ErkJggg==) repeat;*/
+    background-color: #e0e1d5;
 }
 
 .hljs-addition {
-  color: #000;
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAALUlEQVQYV2N89+7dfwYk8P79ewZBQUFkIQZGOiu6e/cuiptQHAPl0NtNxAQBAM97Oejj3Dg7AAAAAElFTkSuQmCC) repeat;
+    color:            #000000;
+    /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAALUlEQVQYV2N89+7dfwYk8P79ewZBQUFkIQZGOiu6e/cuiptQHAPl0NtNxAQBAM97Oejj3Dg7AAAAAElFTkSuQmCC) repeat;*/
+    background-color: #e0e1d5;
 }
 
 .hljs-emphasis {
-  font-style: italic;
+    font-style: italic;
 }
 
 .hljs-strong {
-  font-weight: 700;
+    font-weight: 700;
 }
